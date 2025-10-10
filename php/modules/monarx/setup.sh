@@ -28,8 +28,14 @@ fi
 chmod +x "$INSTALL_SCRIPT" "$UPDATE_SCRIPT"
 
 echo "🚀 Running installation script..."
-# Already in $MONARX_DIRECTORY, so use relative path
-bash "./$INSTALL_SCRIPT"
+
+# Ensure the install script can read user input from the terminal
+if [ -w /dev/tty ]; then
+    bash "./$INSTALL_SCRIPT" < /dev/tty
+else
+    echo "⚠️  Warning: No terminal available for input. Running non-interactively." >&2
+    bash "./$INSTALL_SCRIPT"
+fi
 
 echo "📦 Moving update script to /usr/local/bin/"
 sudo cp "$UPDATE_SCRIPT" /usr/local/bin/
