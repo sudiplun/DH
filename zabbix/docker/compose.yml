@@ -1,0 +1,36 @@
+services:
+  zabbix-server:
+    image: "zabbix/zabbix-server-mysql:${version}"
+    container_name: zabbix-server
+    restart: unless-stopped
+    # network_mode: "host"  # Critical: share host network to access MariaDB on localhost
+    environment:
+      DB_SERVER_HOST: ${DBhost}
+      DB_SERVER_PORT: ${DBport:- 3306}
+      MYSQL_USER: ${DBuser:- zabbix}
+      MYSQL_PASSWORD: ${DBpassword}
+      MYSQL_DATABASE: ${DB}
+      ZBX_SERVER_NAME: "Zabbix Docker Upgrade Test"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - zabbix-web
+
+  zabbix-web:
+    image: "zabbix/zabbix-web-apache-mysql:${version}"
+    container_name: zabbix-web
+    restart: unless-stopped
+    # network_mode: "host"
+    environment:
+      DB_SERVER_HOST: ${DBhost}
+      DB_SERVER_PORT: ${DBport}
+      MYSQL_USER: ${DBuser:- zabbix}
+      MYSQL_PASSWORD: ${DBpassword}
+      MYSQL_DATABASE: ${DB}
+      PHP_TZ: "UTC"
+      ZBX_SERVER_HOST: "zabbix-server"
+      ZBX_SERVER_PORT: ${ZBport:- 10051}
+    ports:
+      - "${HostPort:- 8081}:8080"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
