@@ -21,3 +21,8 @@ sudo dnf install zabbix-agent
 mv /etc/zabbix/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf.bak19
 mv /etc/zabbix/zabbix_agentd.conf.rpmsave /etc/zabbix/zabbix_agentd.conf
 sed -i 's/10\.112\.1\.19/10\.112\.1\.16/g' /etc/zabbix/zabbix_agentd.conf
+echo "ENABLE & RESTART AGENT"
+systemctl enable zabbix-agent
+systemctl start zabbix-agent
+echo "LIVE LOG"
+tail -f -n 30 /var/log/zabbix/zabbix_agentd.log
