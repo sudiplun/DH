@@ -105,4 +105,4 @@ systemctl enable zabbix-agent
 systemctl start zabbix-agent
 
 echo "LIVE LOG"
-t
+tail -f -n 30 /var/log/zabbix/zabbix_agentd.log
