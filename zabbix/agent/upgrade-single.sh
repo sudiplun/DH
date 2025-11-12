@@ -94,7 +94,7 @@ install_zabbix_repo
 dnf clean all
 
 echo "INSTALL ZABBIX AGENT 7"
-sudo dnf install zabbix-agent 
+sudo dnf install zabbix-agent -y
 mv /etc/zabbix/zabbix_agentd.conf /etc/zabbix/zabbix_agentd.conf.bak19
 mv /etc/zabbix/zabbix_agentd.conf.rpmsave /etc/zabbix/zabbix_agentd.conf
 
