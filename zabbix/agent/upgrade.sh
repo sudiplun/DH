@@ -6,7 +6,7 @@ systemctl stop zabbix-agent
 
 echo "Backup config files"
 mkdir -p /root/zabbix-backup/
-cp /etc/zabbix/ /root/zabbix-backup/
+cp  -r /etc/zabbix/ /root/zabbix-backup/
 
 echo "Removing old zabbix packages"
 sudo dnf remove zabbix-agent zabbix-release -y
