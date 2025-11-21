@@ -16,7 +16,7 @@ cp /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.bak
 sed -i '0,/^$/{s/^$/excludepkgs=zabbix*\n/;}'  /etc/yum.repos.d/epel.repo
 
 # download new packages
-echo "DETECT OS AND VERSION" # TODO: detect os and it's version 
+echo "DETECT OS AND VERSION" 
 # Function to detect OS and version
 detect_os() {
     if [ -f /etc/os-release ]; then
